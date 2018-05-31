@@ -1,0 +1,18 @@
+This is some fairly trivial benchmark code for benchmarking the gnulib STRCASEEQ optimization.
+
+I ran into it and, out of curiosity, wanted to measure it.
+
+Compiling
+=======
+
+
+```sh
+aclocal
+autoheader
+automake --add-missing # ignore errors
+autoreconf
+automake
+./configure
+make
+```
+
