@@ -16,3 +16,9 @@ automake
 make
 ```
 
+Upper / lowercase comparison
+========================
+
+By default, it compares (ignoring case) utf-8 to UTF-8. To make them both uppercase to begin with, you can compile with `./configure CPPFLAGS='-DALREADY_UPPER'` and then `make clean && make`
+
+
