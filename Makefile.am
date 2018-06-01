@@ -5,7 +5,8 @@ LDADD = lib/libgnu.a
 
 SUBDIRS = lib
 
-bin_PROGRAMS = slow fast noop
+bin_PROGRAMS = slow fast noop unroll
 slow_SOURCES = slow.c
 fast_SOURCES = fast.c
 noop_SOURCES = noop.c
+unroll_SOURCES = unroll.c
