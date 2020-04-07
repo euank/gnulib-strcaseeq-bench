@@ -2,6 +2,7 @@ This is some fairly trivial benchmark code for benchmarking the gnulib STRCASEEQ
 
 I ran into it and, out of curiosity, wanted to measure it.
 
+
 Compiling
 =======
 
@@ -16,9 +17,42 @@ automake
 make
 ```
 
+
 Upper / lowercase comparison
 ========================
 
 By default, it compares (ignoring case) utf-8 to UTF-8. To make them both uppercase to begin with, you can compile with `./configure CPPFLAGS='-DALREADY_UPPER'` and then `make clean && make`
 
 
+The fast and slow implementations are in `./lib/streq.h` (strcaseeq0) and
+`./lib/c-strcasecmp.c` (c_strcasecmp) respectively.
+
+
+Results
+=======
+
+Each test was run by using `perf stat ./binary` three times, and taking the
+third result.
+
+My machine gives me the following results:
+
+/------------------------------------------\
+| Version | Time  | Number of instructions |
+|==========================================|
+| noop    | 0.24s |          2,972,422,099 |
+| fast    | 1.19s |         22,011,728,676 |
+| slow    | 5.37s |        116,065,223,516 |
+
+Note that switching from -O2 to -O3 has no noticible effect.
+
+
+Conclusions
+===========
+
+My takeaway from this is that the somewhat opaque-looking optimization in
+lib/c-strcaseeq.h within gnulib does have a notable performance impact... when
+run a billion times.
+
+Given it's part of a locale check run whenever you do almost anything on a
+modern linux machine, it probably is run millions or billions of times, so if
+you're going to pick a library to micro-optimize, this is a good one.
