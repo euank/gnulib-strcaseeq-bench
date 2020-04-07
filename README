@@ -24,7 +24,7 @@ Upper / lowercase comparison
 By default, it compares (ignoring case) utf-8 to UTF-8. To make them both uppercase to begin with, you can compile with `./configure CPPFLAGS='-DALREADY_UPPER'` and then `make clean && make`
 
 
-The fast and slow implementations are in `./lib/streq.h` (strcaseeq0) and
+The fast and slow implementations are in `./lib/c-strcaseeq.h` (strcaseeq0) and
 `./lib/c-strcasecmp.c` (c_strcasecmp) respectively.
 
 
